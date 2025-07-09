@@ -2,6 +2,7 @@
 'use client'; // This is a client component to handle FAQ accordion state.
 
 import React, { useState } from "react";
+import Image from "next/image";
 import {
   PencilSquareIcon,
   UserPlusIcon,
@@ -9,11 +10,11 @@ import {
 } from "@heroicons/react/24/outline";
 // --- Icon Components ---
 
-const ArrowIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 ml-2">
-    <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
-  </svg>
-);
+// const ArrowIcon = () => (
+//   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 ml-2">
+//     <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
+//   </svg>
+// );
 
 const PlusIcon = ({ isOpen }: { isOpen: boolean }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className={`w-7 h-7 transition-transform duration-300 ${isOpen ? 'rotate-45' : 'rotate-0'}`}>
@@ -21,21 +22,21 @@ const PlusIcon = ({ isOpen }: { isOpen: boolean }) => (
     </svg>
 );
 
-const RefreshIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 mb-4 text-white/80">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0011.664 0l3.18-3.185m-7.5 0v-4.992m0 0h-4.992M9.75 9.348l-3.182-3.182a8.25 8.25 0 0111.664 0l3.18 3.185" />
-    </svg>
-);
+// const RefreshIcon = () => (
+//     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 mb-4 text-white/80">
+//         <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0011.664 0l3.18-3.185m-7.5 0v-4.992m0 0h-4.992M9.75 9.348l-3.182-3.182a8.25 8.25 0 0111.664 0l3.18 3.185" />
+//     </svg>
+// );
 const SparklesIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 mb-4 text-white/80">
         <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.562L16.25 21.75l-.648-1.188a2.25 2.25 0 01-1.476-1.476L12.938 18l1.188-.648a2.25 2.25 0 011.476-1.476L16.25 15l.648 1.188a2.25 2.25 0 011.476 1.476L19.563 18l-1.188.648a2.25 2.25 0 01-1.476 1.476z" />
     </svg>
 );
-const NoSymbolIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 mb-4 text-white/80">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-    </svg>
-);
+// const NoSymbolIcon = () => (
+//     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 mb-4 text-white/80">
+//         <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+//     </svg>
+// );
 const ArrowUpTrayIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 mb-4 text-white/80">
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25" />
@@ -44,13 +45,6 @@ const ArrowUpTrayIcon = () => (
 
 
 // --- Data Arrays ---
-
-// const howItWorksSteps = [
-//     { badge: "📝", title: "1. Post current POV", description: "Share a moment — photo, video, or thought." },
-//     { badge: "🤖", title: "2. Interest Inference", description: "We detect themes and interests in your post." },
-//     { badge: "🔗", title: "3. Get Matched", description: "Connect with people who have a similar POV." },
-//     { badge: "🔁", title: "4 . Reset", description: "Every 24h your posts disappear. Start fresh every day." },
-// ];
 
 const reasons = [
   {
@@ -210,10 +204,12 @@ export default function LandingPage() {
         {/* Section 1: Hero Area */}
            <main className="relative flex-grow flex flex-col items-center justify-center p-6 text-center min-h-screen overflow-hidden">
       {/* Background image */}
-      <img
+      <Image
         src="/mypov_landing_page.png"
         alt="MyPOV landing background"
-        className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"
+        layout="fill"
+        objectFit="cover"
+        className="opacity-20 pointer-events-none"
       />
 
           <div className="max-w-3xl mx-auto">
