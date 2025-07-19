@@ -94,13 +94,13 @@ const howItWorksSteps = [
   },
   {
     icon: UserPlusIcon,
-    title: "3. Get Matched",
+    title: "3. Get matched and remain anonymous.",
     description: "Connect with people who share your energy — instantly."
   },
   {
     icon: ArrowPathIcon,
     title: "4. Reset Tomorrow",
-    description: "Everything disappears after 24h. No pressure. Start fresh."
+    description: "Everything disappears after 72 hours. No pressure. Start fresh."
   }
 ];
 
@@ -252,11 +252,13 @@ export default function LandingPage() {
             No judgment. No history.
             </p>
             Be You.
+            <HowItWorksSection />
+            <ReasonsSection />
+            <FaqSection />
         </main>
         
-        <HowItWorksSection />
-        <ReasonsSection />
-        <FaqSection />
+       
+  
         
         <footer className="w-full p-6 md:p-8 text-center z-10">
           <div className="text-xs text-neutral-600 space-x-4">
