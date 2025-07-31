@@ -54,10 +54,10 @@ const reasons = [
 ]
 
 const faqItems = [
-  { question: "What is myPOV?", answer: "Think of it as Instagram without the pressure. Share what's real, connect with people who get it, and start fresh every few days. No followers, no likes, just genuine connections." },
-  { question: "How do temporary accounts work?", answer: "Everything disappears after 72 hours. Your posts, matches, conversations — poof, gone. It's liberating. No pressure to maintain a perfect feed or worry about what you posted last week." },
+  { question: "What is myPOV?", answer: "It's like Instagram but without the pressure to be perfect. Share what's real, connect with people who get it, and start fresh every few days. No followers, no likes, just genuine connections." },
+  { question: "How do temporary accounts work?", answer: "Everything disappears after 72 hours. Your posts, matches, conversations... poof, gone. It's liberating. No pressure to maintain a perfect feed or worry about what you posted last week" },
   { question: "What if I want to keep my matches?", answer: "If you find someone you really connect with, you can both upgrade to permanent accounts. Your connection stays, but you get to build something lasting together." },
-  { question: "How does the AI matching work?", answer: "We look at what you post — your photos, videos, the vibe you're putting out there — and find people who share your energy. It's not about algorithms, it's about real human connection." },
+  { question: "How does the AI matching work?", answer: "We look at what you post and the vibe you're putting out there and find people who share your energy. It's not about algorithms, it's about real human connection." },
   { question: "Is this a dating app?", answer: "It's whatever you want it to be. Some people find love, others find friends, collaborators, or just someone to chat with. We're not here to define your relationships for you." },
 ];
 const howItWorksSteps = [
