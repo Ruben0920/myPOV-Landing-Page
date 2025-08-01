@@ -48,7 +48,7 @@ const reasons = [
   {
     icon: <div className="w-12 h-12 bg-gradient-to-br from-[#B9E200]/20 to-[#5400CB]/30 rounded-xl flex items-center justify-center text-white font-bold text-xl border border-[#5400CB]/40 shadow-lg shadow-[#5400CB]/20">4</div>,
     title: "Meet the Team",
-    description: "We will have a discord server where you can meet the team and other users, where you can also influence the direction of the app.",
+    description: "We will send you a link to our discord server where you can meet the team and other users, where you can also influence the direction of the app.",
     gradient: "from-[#B9E200]/5 to-[#5400CB]/20",
   },
 ]
