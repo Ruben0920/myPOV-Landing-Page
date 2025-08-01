@@ -86,7 +86,7 @@ const howItWorksSteps = [
 // --- Section Components ---
 
 const Header = () => (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#DCCAFF]/20 to-[#5400CB]/10 backdrop-blur-md border-b border-white/10">
       <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
         <Image 
             src="/images/Logo Color.svg" 
@@ -106,7 +106,7 @@ const Header = () => (
   );
 
 const HowItWorksSection = () => (
-  <section className="w-full py-20 md:py-32 bg-black mt-32">
+  <section className="w-full py-20 md:py-32 bg-black mt-16">
     <div className="max-w-7xl mx-auto px-6">
       <div className="flex flex-col items-center mb-16">
         <Image 
@@ -246,10 +246,6 @@ export default function LandingPage() {
                     </h1>
                   <br/>
                 </div>
-                <div className="text-center text-lg md:text-xl text-neutral-100 leading-relaxed max-w-lg mx-auto mb-8 px-8 py-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 shadow-2xl shadow-black/20">
-                  Be Raw. Be Seen. Disappear.
-                  <br />
-                </div>
                 <div className="w-full max-w-xl mt-12 text-center">
                   <form 
                     id="form"
@@ -276,11 +272,6 @@ export default function LandingPage() {
                       Early access + 1 year of Premium.
                     </p>
                 </div>
-                <p className="mt-10 text-xl text-neutral-300 max-w-2xl mx-auto font-light">
-                    <br />
-                    No judgment. No history.
-                </p>
-                <p className="text-2xl font-semibold text-white mt-2">Be You.</p>
             </div>
         </main>
         
@@ -298,6 +289,12 @@ export default function LandingPage() {
                 height={33}
                 className="h-12 w-auto"
             />
+            <div className="text-center">
+              <p className="text-lg text-neutral-300 font-light mb-2">
+                No judgment. No history.
+              </p>
+              <p className="text-2xl font-semibold text-white">Be You.</p>
+            </div>
             <div className="text-xs text-neutral-600 space-x-4">
               <a href="#" className="hover:text-neutral-400 transition-colors">Terms</a>
               <span>&bull;</span>
