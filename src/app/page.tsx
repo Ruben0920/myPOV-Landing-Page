@@ -1,7 +1,7 @@
 // app/page.tsx
 'use client'; // This is a client component to handle FAQ accordion state.
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   PencilSquareIcon,
@@ -60,6 +60,34 @@ const faqItems = [
   { question: "How does the AI matching work?", answer: "We look at what you post and the vibe you're putting out there and find people who share your energy. It's not about algorithms, it's about real human connection." },
   { question: "Is this a dating app?", answer: "It's whatever you want it to be. Some people find love, others find friends, collaborators, or just someone to chat with. We're not here to define your relationships for you." },
 ];
+
+const roadmapFeatures = [
+  {
+    title: "AI Conversation Starters",
+    description: "Smart icebreakers based on your shared interests and energy. No more awkward 'hey' messages.",
+    timeline: "Coming Soon"
+  },
+  {
+    title: "Random Group Adventures",
+    description: "Get added to random group chats with 3-5 like-minded people. Perfect for making friend groups.",
+    timeline: "Beta Phase"
+  },
+  {
+    title: "Community Games",
+    description: "Text, video, and voice games voted on by our community. Everything resets every 72 hours too.",
+    timeline: "As We Grow"
+  },
+  {
+    title: "Interest-Based Matching",
+    description: "Connect over specific hobbies, goals, or vibes. From book clubs to workout buddies.",
+    timeline: "Coming Soon"
+  },
+  {
+    title: "Mood-Based Connections",
+    description: "Match with people in similar headspaces. Whether you're excited, contemplative, or need support.",
+    timeline: "Future Vision"
+  }
+];
 const howItWorksSteps = [
   {
     icon: PencilSquareIcon,
@@ -106,7 +134,7 @@ const Header = () => (
   );
 
 const HowItWorksSection = () => (
-  <section className="w-full py-20 md:py-32 bg-black mt-16">
+  <section data-section="how-it-works" className="w-full py-20 md:py-32 bg-black mt-16">
     <div className="max-w-7xl mx-auto px-6">
       <div className="flex flex-col items-center mb-16">
         <Image 
@@ -207,8 +235,176 @@ const FaqSection = () => {
 };
 
 
+// --- Roadmap Popup Component ---
+const RoadmapPopup = ({ isVisible, onClose }: { isVisible: boolean; onClose: () => void }) => {
+  if (!isVisible) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="relative max-w-4xl w-full max-h-[90vh] bg-gradient-to-br from-neutral-900/95 to-neutral-800/95 rounded-2xl border border-white/20 shadow-2xl shadow-[#5400CB]/20 overflow-hidden">
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-6 right-6 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-white">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div className="p-8 overflow-y-auto max-h-[90vh]">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[#5400CB]/30 to-[#DCCAFF]/20 border border-[#5400CB]/40 mb-4">
+              <SparklesIcon />
+            </div>
+            <h2 className="font-headline text-3xl md:text-4xl font-bold text-white mb-3">
+              What's Coming Next
+            </h2>
+            <p className="text-lg text-neutral-300 max-w-2xl mx-auto">
+              We're building this with you. As our community grows, so do the ways to connect — everything temporary, everything real, everything decided by you.
+            </p>
+          </div>
+
+          {/* Roadmap Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {roadmapFeatures.map((feature, index) => (
+              <div
+                key={index}
+                className="p-6 rounded-xl bg-gradient-to-br from-white/5 to-white/2 border border-white/10 hover:border-[#5400CB]/30 transition-all duration-300"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <h3 className="text-xl font-bold text-white">{feature.title}</h3>
+                  <span className="text-xs font-medium text-[#DCCAFF] bg-[#5400CB]/20 px-2 py-1 rounded-full border border-[#5400CB]/30">
+                    {feature.timeline}
+                  </span>
+                </div>
+                <p className="text-neutral-300 leading-relaxed">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="text-center mt-8 pt-6 border-t border-white/10">
+            <p className="text-neutral-400 mb-4">Want to help shape these features?</p>
+            <a 
+              href="#form" 
+              onClick={onClose}
+              className="inline-flex items-center justify-center text-lg font-semibold bg-gradient-to-r from-[#5400CB] to-[#6a00ff] hover:from-[#6a00ff] hover:to-[#5400CB] text-white rounded-xl px-8 py-3 transition-all duration-300 shadow-lg shadow-[#5400CB]/40 hover:shadow-xl hover:shadow-[#6a00ff]/50"
+            >
+              Join the Waitlist
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- Small Notification Component ---
+const SmallNotification = ({ 
+  isVisible, 
+  isMinimized, 
+  onMinimize, 
+  onExpand, 
+  onOpenRoadmap 
+}: { 
+  isVisible: boolean; 
+  isMinimized: boolean; 
+  onMinimize: () => void; 
+  onExpand: () => void; 
+  onOpenRoadmap: () => void; 
+}) => {
+  if (!isVisible) return null;
+
+  if (isMinimized) {
+    return (
+      <button
+        onClick={onExpand}
+        className="fixed bottom-6 right-6 z-40 w-12 h-12 bg-gradient-to-r from-[#5400CB] to-[#6a00ff] rounded-full flex items-center justify-center shadow-lg shadow-[#5400CB]/40 hover:shadow-xl hover:shadow-[#6a00ff]/50 transition-all duration-300 hover:scale-105"
+      >
+        <SparklesIcon />
+      </button>
+    );
+  }
+
+  return (
+    <div className="fixed bottom-6 right-6 z-40 max-w-sm">
+      <div className="bg-gradient-to-br from-neutral-900/95 to-neutral-800/95 backdrop-blur-sm rounded-xl border border-white/20 shadow-xl shadow-[#5400CB]/20 p-4">
+        <div className="flex items-start justify-between mb-3">
+          <div className="flex items-center">
+            <div className="w-8 h-8 bg-gradient-to-br from-[#5400CB]/30 to-[#DCCAFF]/20 rounded-lg flex items-center justify-center mr-3">
+              <SparklesIcon />
+            </div>
+            <div>
+              <h3 className="text-white font-semibold text-sm">Excited?</h3>
+              <p className="text-neutral-300 text-xs">See what's coming next</p>
+            </div>
+          </div>
+          <button
+            onClick={onMinimize}
+            className="w-6 h-6 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3 h-3 text-white">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <button
+          onClick={onOpenRoadmap}
+          className="w-full text-sm font-medium bg-gradient-to-r from-[#5400CB] to-[#6a00ff] hover:from-[#6a00ff] hover:to-[#5400CB] text-white rounded-lg px-3 py-2 transition-all duration-300"
+        >
+          Learn More
+        </button>
+      </div>
+    </div>
+  );
+};
+
 // --- Main Page Component ---
 export default function LandingPage() {
+  const [showFullRoadmap, setShowFullRoadmap] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [isNotificationMinimized, setIsNotificationMinimized] = useState(false);
+  const [hasShownThisSession, setHasShownThisSession] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (hasShownThisSession) return;
+      
+      const howItWorksSection = document.querySelector('[data-section="how-it-works"]');
+      if (howItWorksSection) {
+        const rect = howItWorksSection.getBoundingClientRect();
+        // Show notification when user scrolls past the How It Works section
+        if (rect.bottom < window.innerHeight && !showNotification) {
+          setTimeout(() => {
+            setShowNotification(true);
+            setHasShownThisSession(true);
+          }, 1500);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [showNotification, hasShownThisSession]);
+
+  const handleOpenRoadmap = () => {
+    setShowFullRoadmap(true);
+  };
+
+  const handleCloseRoadmap = () => {
+    setShowFullRoadmap(false);
+    setIsNotificationMinimized(true);
+  };
+
+  const handleMinimizeNotification = () => {
+    setIsNotificationMinimized(true);
+  };
+
+  const handleExpandNotification = () => {
+    setIsNotificationMinimized(false);
+  };
   return (
     <>
       <style jsx global>{`
@@ -217,18 +413,21 @@ export default function LandingPage() {
         .font-headline { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
       `}</style>
       
-      <div className="flex flex-col min-h-screen bg-black text-white antialiased">
+      <div className="relative flex flex-col min-h-screen bg-black text-white antialiased">
+        {/* Animated gradient background - covers entire page */}
+        <div className="fixed inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black z-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#5400CB]/10 via-[#6C4AD9]/5 to-[#DCCAFF]/10 animate-pulse"></div>
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-transparent via-[#5400CB]/5 to-transparent animate-pulse" style={{animationDuration: '8s'}}></div>
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#5400CB]/10 rounded-full blur-3xl animate-pulse" style={{animationDuration: '6s'}}></div>
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-[#DCCAFF]/10 rounded-full blur-3xl animate-pulse" style={{animationDuration: '10s'}}></div>
+          <div className="absolute top-3/4 right-1/3 w-80 h-80 bg-[#5400CB]/8 rounded-full blur-3xl animate-pulse" style={{animationDuration: '12s'}}></div>
+          <div className="absolute bottom-10 left-1/2 w-72 h-72 bg-[#DCCAFF]/8 rounded-full blur-3xl animate-pulse" style={{animationDuration: '14s'}}></div>
+        </div>
+        
         <Header />
         
         {/* Section 1: Hero Area */}
-        <main className="relative flex-grow flex flex-col items-center justify-center p-6 text-center min-h-[70vh] pt-20 overflow-hidden">
-            {/* Animated gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#5400CB]/10 via-[#6C4AD9]/5 to-[#DCCAFF]/10 animate-pulse"></div>
-              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-transparent via-[#5400CB]/5 to-transparent animate-pulse" style={{animationDuration: '8s'}}></div>
-              <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#5400CB]/10 rounded-full blur-3xl animate-pulse" style={{animationDuration: '6s'}}></div>
-              <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-[#DCCAFF]/10 rounded-full blur-3xl animate-pulse" style={{animationDuration: '10s'}}></div>
-            </div>
+        <main className="relative flex-grow flex flex-col items-center justify-center p-6 text-center min-h-[70vh] pt-20 overflow-hidden z-10">
             {/* Small logo in corner */}
             <div className="absolute top-8 right-8 z-20">
               <Image 
@@ -275,12 +474,25 @@ export default function LandingPage() {
             </div>
         </main>
         
-        <HowItWorksSection />
-        <ReasonsSection />
+        {/* Scroll Indicator - positioned between hero and first section */}
+        <div className="relative w-full py-8 flex justify-center z-10">
+          <div className="animate-bounce">
+            <div className="flex flex-col items-center">
+              <p className="text-sm text-white/60 mb-2 font-medium">Scroll to learn more</p>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6 text-[#DCCAFF] opacity-80">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </div>
+          </div>
+        </div>
         
-        <FaqSection />
+        <div className="relative z-10">
+          <HowItWorksSection />
+          <ReasonsSection />
+          <FaqSection />
+        </div>
         
-        <footer className="w-full p-6 md:p-8 text-center z-10">
+        <footer className="relative w-full p-6 md:p-8 text-center z-10">
           <div className="flex flex-col items-center space-y-6">
             <Image 
                 src="/images/Logo Color.svg" 
@@ -295,15 +507,21 @@ export default function LandingPage() {
               </p>
               <p className="text-2xl font-semibold text-white">Be You.</p>
             </div>
-            <div className="text-xs text-neutral-600 space-x-4">
-              <a href="#" className="hover:text-neutral-400 transition-colors">Terms</a>
-              <span>&bull;</span>
-              <a href="#" className="hover:text-neutral-400 transition-colors">Privacy</a>
-              <span>&bull;</span>
-              <a href="#" className="hover:text-neutral-400 transition-colors">Contact</a>
-            </div>
           </div>
         </footer>
+        
+        <SmallNotification
+          isVisible={showNotification}
+          isMinimized={isNotificationMinimized}
+          onMinimize={handleMinimizeNotification}
+          onExpand={handleExpandNotification}
+          onOpenRoadmap={handleOpenRoadmap}
+        />
+        
+        <RoadmapPopup 
+          isVisible={showFullRoadmap} 
+          onClose={handleCloseRoadmap} 
+        />
       </div>
     </>
   );
