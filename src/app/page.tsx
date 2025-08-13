@@ -259,10 +259,10 @@ const RoadmapPopup = ({ isVisible, onClose }: { isVisible: boolean; onClose: () 
               <SparklesIcon />
             </div>
             <h2 className="font-headline text-3xl md:text-4xl font-bold text-white mb-3">
-              What's Coming Next
+              What&apos;s Coming Next
             </h2>
             <p className="text-lg text-neutral-300 max-w-2xl mx-auto">
-              We're building this with you. As our community grows, so do the ways to connect — everything temporary, everything real, everything decided by you.
+              We&apos;re building this with you. As our community grows, so do the ways to connect — everything temporary, everything real, everything decided by you.
             </p>
           </div>
 
@@ -338,7 +338,7 @@ const SmallNotification = ({
             </div>
             <div>
               <h3 className="text-white font-semibold text-sm">Excited?</h3>
-              <p className="text-neutral-300 text-xs">See what's coming next</p>
+              <p className="text-neutral-300 text-xs">See what&apos;s coming next</p>
             </div>
           </div>
           <button
