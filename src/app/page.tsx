@@ -10,7 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 // --- Config Constants ---
-const FOUNDING_URL = "https://mypov.world/founding";
+const FOUNDING_URL = "https://buy.stripe.com/test_28EeVfbjbcGU4zi68G6g800";
 
 // --- Icon Components ---
 const PlusIcon = ({ isOpen }: { isOpen: boolean }) => (
