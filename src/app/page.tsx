@@ -9,6 +9,8 @@ import {
   ArrowPathIcon
 } from "@heroicons/react/24/outline";
 
+// --- Config Constants ---
+const FOUNDING_URL = "https://mypov.world/founding";
 
 // --- Icon Components ---
 const PlusIcon = ({ isOpen }: { isOpen: boolean }) => (
@@ -234,6 +236,104 @@ const FaqSection = () => {
   );
 };
 
+// --- Bottom CTA Component ---
+const BottomCTA = () => {
+  const [showInfo, setShowInfo] = useState(false);
+
+  const handleCtaClick = () => {
+    console.log("cta_click");
+  };
+
+  const handleLearnMoreClick = () => {
+    setShowInfo(!showInfo);
+  };
+
+  return (
+    <>
+      {/* Info Modal/Overlay */}
+      {showInfo && (
+        <div 
+          className="fixed inset-0 z-[998] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setShowInfo(false)}
+        >
+          <div 
+            className="bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-2xl border border-white/10 p-8 max-w-md w-full shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-2xl font-bold text-white mb-4">What is Founding Access?</h3>
+            <p className="text-neutral-300 leading-relaxed mb-4">
+              By becoming a Founding Member, you help us build myPOV from the ground up. In return, you get:
+            </p>
+            <ul className="text-neutral-300 space-y-2 mb-6">
+              <li className="flex items-start gap-2">
+                <span className="text-[#B9E200] mt-1">✓</span>
+                <span>Lifetime premium access when we launch</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#B9E200] mt-1">✓</span>
+                <span>Direct input on features and direction</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#B9E200] mt-1">✓</span>
+                <span>Founding Member badge on your profile</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#B9E200] mt-1">✓</span>
+                <span>Access to our private Discord community</span>
+              </li>
+            </ul>
+            <button 
+              onClick={() => setShowInfo(false)}
+              className="w-full py-3 bg-white/10 hover:bg-white/20 rounded-xl text-white font-medium transition-colors"
+            >
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Sticky Bottom CTA Bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-[999] bg-gradient-to-r from-black/95 via-neutral-900/95 to-black/95 backdrop-blur-md border-t border-white/10 shadow-[0_-4px_30px_rgba(84,0,203,0.3)]">
+        <div className="max-w-4xl mx-auto px-4 py-3 md:py-4 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-6">
+          {/* Text content */}
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+            <p className="text-sm text-neutral-400 hidden md:block">
+              Help shape myPOV • Get lifetime access when it launches
+            </p>
+            <button 
+              onClick={handleLearnMoreClick}
+              className="text-xs text-[#DCCAFF] hover:text-white transition-colors underline underline-offset-2 mt-1 hidden md:block"
+            >
+              Learn more
+            </button>
+          </div>
+
+          {/* CTA Button */}
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={handleLearnMoreClick}
+              className="text-xs text-[#DCCAFF] hover:text-white transition-colors underline underline-offset-2 md:hidden"
+            >
+              Learn more
+            </button>
+            <a
+              href={FOUNDING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleCtaClick}
+              className="inline-flex items-center gap-2 px-6 py-2.5 md:px-8 md:py-3 bg-gradient-to-r from-[#5400CB] to-[#6a00ff] hover:from-[#6a00ff] hover:to-[#5400CB] text-white font-semibold text-sm md:text-base rounded-xl shadow-lg shadow-[#5400CB]/40 hover:shadow-xl hover:shadow-[#6a00ff]/50 transition-all duration-300 hover:scale-105 whitespace-nowrap"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 md:w-5 md:h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+              </svg>
+              Become a Founding Member
+            </a>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 // --- Roadmap Popup Component ---
 const RoadmapPopup = ({ isVisible, onClose }: { isVisible: boolean; onClose: () => void }) => {
@@ -413,7 +513,7 @@ export default function LandingPage() {
         .font-headline { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
       `}</style>
       
-      <div className="relative flex flex-col min-h-screen bg-black text-white antialiased">
+      <div className="relative flex flex-col min-h-screen bg-black text-white antialiased pb-20 md:pb-16">
         {/* Animated gradient background - covers entire page */}
         <div className="fixed inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-[#5400CB]/10 via-[#6C4AD9]/5 to-[#DCCAFF]/10 animate-pulse"></div>
@@ -509,6 +609,8 @@ export default function LandingPage() {
             </div>
           </div>
         </footer>
+        
+        <BottomCTA />
         
         <SmallNotification
           isVisible={showNotification}
